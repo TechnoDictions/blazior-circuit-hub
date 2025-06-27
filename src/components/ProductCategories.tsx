@@ -1,97 +1,66 @@
 
-import { useEffect, useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const ProductCategories = () => {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const categories = [
     {
       title: "Electronic Components",
-      description: "High-quality resistors, capacitors, and semiconductors",
-      icon: "🔌",
+      description: "High-quality resistors, capacitors, semiconductors, and integrated circuits",
+      features: ["Resistors & Capacitors", "Semiconductors", "Integrated Circuits", "Connectors"],
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop"
+    },
+    {
+      title: "Electronic Devices",
+      description: "Professional-grade electronic devices and measurement instruments",
+      features: ["Measurement Tools", "Testing Equipment", "Control Systems", "Display Units"],
+      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop"
     },
     {
       title: "Power Inverters",
-      description: "Efficient DC to AC power conversion solutions",
-      icon: "⚡",
-    },
-    {
-      title: "Circuit Boards",
-      description: "Custom PCB design and manufacturing services",
-      icon: "🖥️",
-    },
-    {
-      title: "Sensors & Controls",
-      description: "Advanced sensing and automation components",
-      icon: "📡",
-    },
+      description: "Reliable power inverters for industrial and residential applications",
+      features: ["Pure Sine Wave", "Modified Sine Wave", "Grid-Tie Inverters", "Battery Chargers"],
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=800&h=600&fit=crop"
+    }
   ];
 
   return (
-    <section id="products" className="py-20 relative overflow-hidden bg-slate-900">
-      {/* Parallax background with hexagonal pattern */}
-      <div 
-        className="absolute inset-0 opacity-20"
-        style={{ 
-          transform: `translateY(${scrollY * -0.2}px) scale(1.1)`,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234F46E5' fill-opacity='0.1'%3E%3Cpolygon points='60,10 90,30 90,70 60,90 30,70 30,30'/%3E%3C/g%3E%3C/svg%3E")` 
-        }}
-      ></div>
-
-      {/* Floating tech elements */}
-      <div 
-        className="absolute top-10 right-1/4 w-20 h-20 bg-cyan-400/10 rotate-12"
-        style={{ transform: `translateY(${scrollY * 0.3}px) rotate(${12 + scrollY * 0.2}deg)` }}
-      ></div>
-      <div 
-        className="absolute bottom-32 left-1/3 w-28 h-28 bg-blue-500/10 rounded-full"
-        style={{ transform: `translateY(${scrollY * -0.15}px)` }}
-      ></div>
-      <div 
-        className="absolute top-1/3 left-10 w-12 h-12 bg-blue-300/20 transform"
-        style={{ transform: `translateY(${scrollY * 0.4}px) translateX(${scrollY * 0.05}px)` }}
-      ></div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div 
-          className="text-center mb-16"
-          style={{ transform: `translateY(${scrollY * 0.1}px)` }}
-        >
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Our <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Products</span>
+    <section id="products" className="py-20 bg-slate-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Our <span className="text-blue-400">Product Range</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Comprehensive range of electronic components and solutions for all your technical needs
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Comprehensive selection of premium electronic components and devices for all your trading needs
           </p>
         </div>
-
-        <div 
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-          style={{ transform: `translateY(${scrollY * 0.05}px)` }}
-        >
+        
+        <div className="grid md:grid-cols-3 gap-8">
           {categories.map((category, index) => (
-            <div 
-              key={index}
-              className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-lg border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 hover:transform hover:scale-105"
-              style={{ 
-                transform: `translateY(${scrollY * (0.02 + index * 0.01)}px)`,
-                transitionDelay: `${index * 50}ms` 
-              }}
-            >
-              <div className="text-4xl mb-4 text-center">{category.icon}</div>
-              <h3 className="text-xl font-semibold text-white mb-3 text-center">
-                {category.title}
-              </h3>
-              <p className="text-gray-300 text-center text-sm leading-relaxed">
-                {category.description}
-              </p>
-            </div>
+            <Card key={index} className="bg-slate-700/50 border-slate-600 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105 group">
+              <div className="relative overflow-hidden rounded-t-lg">
+                <img 
+                  src={category.image} 
+                  alt={category.title}
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+              </div>
+              <CardHeader>
+                <CardTitle className="text-white text-xl">{category.title}</CardTitle>
+                <CardDescription className="text-gray-300">{category.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {category.features.map((feature, idx) => (
+                    <li key={idx} className="text-blue-400 flex items-center">
+                      <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
