@@ -1,7 +1,6 @@
 
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { ChevronRight, Star, Users, Award, Globe } from "lucide-react";
 
 export const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -11,13 +10,6 @@ export const Hero = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const stats = [
-    { icon: Users, number: "500+", label: "Happy Clients" },
-    { icon: Award, number: "10+", label: "Years Experience" },
-    { icon: Globe, number: "25+", label: "Countries Served" },
-    { icon: Star, number: "4.9", label: "Client Rating" }
-  ];
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -62,54 +54,16 @@ export const Hero = () => {
           <p className="text-xl md:text-2xl text-gray-300 mb-4 max-w-3xl mx-auto leading-relaxed">
             Your Premier Partner for Electric & Electronic Components
           </p>
-          <p className="text-lg md:text-xl text-blue-400 mb-6 font-medium">
+          <p className="text-lg md:text-xl text-blue-400 mb-8 font-medium">
             Specializing in Electronic Components, Devices & Power Inverters
           </p>
-          
-          {/* Additional hero content */}
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-4xl mx-auto">
-            <p className="text-gray-300 text-lg mb-4">
-              Trusted by businesses worldwide for high-quality electronic solutions. 
-              From small startups to Fortune 500 companies, we deliver excellence in every component.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-blue-400">
-              <span className="flex items-center gap-1">
-                <ChevronRight size={16} />
-                ISO 9001 Certified
-              </span>
-              <span className="flex items-center gap-1">
-                <ChevronRight size={16} />
-                24/7 Technical Support
-              </span>
-              <span className="flex items-center gap-1">
-                <ChevronRight size={16} />
-                Global Shipping
-              </span>
-              <span className="flex items-center gap-1">
-                <ChevronRight size={16} />
-                Quality Guaranteed
-              </span>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg">
               Explore Products
             </Button>
             <Button variant="outline" size="lg" className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-slate-900 px-8 py-3 text-lg">
               Get Quote
             </Button>
-          </div>
-
-          {/* Stats section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
-              <div key={index} className="bg-slate-800/30 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50">
-                <stat.icon className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                <div className="text-2xl font-bold text-white">{stat.number}</div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
