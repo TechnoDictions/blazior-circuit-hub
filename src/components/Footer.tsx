@@ -1,11 +1,33 @@
 
+import { useEffect, useRef, useState } from "react";
+
 export const Footer = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <footer className="bg-slate-900 border-t border-slate-700">
+    <footer ref={footerRef} className="bg-slate-900 border-t border-slate-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="col-span-1 md:col-span-2">
+          <div className={`col-span-1 md:col-span-2 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h3 className="text-2xl font-bold text-white mb-4">
               <span className="text-blue-400">Blazior</span>
             </h3>
@@ -33,7 +55,7 @@ export const Footer = () => {
           </div>
 
           {/* Products */}
-          <div>
+          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '200ms' }}>
             <h4 className="text-lg font-semibold text-white mb-4">Products</h4>
             <ul className="space-y-2">
               <li><a href="#products" className="text-gray-300 hover:text-blue-400 transition-colors">Electronic Components</a></li>
@@ -44,7 +66,7 @@ export const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '400ms' }}>
             <h4 className="text-lg font-semibold text-white mb-4">Contact</h4>
             <ul className="space-y-2 text-gray-300">
               <li className="flex items-center">
@@ -71,7 +93,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-slate-700 mt-8 pt-8 text-center">
+        <div className={`border-t border-slate-700 mt-8 pt-8 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '600ms' }}>
           <p className="text-gray-400">
             © 2024 Blazior. All rights reserved. | Trading in excellence since 2014.
           </p>

@@ -3,12 +3,33 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useRef, useState } from "react";
 
 export const Contact = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="contact" className="py-20 bg-slate-800">
+    <section ref={sectionRef} id="contact" className="py-20 bg-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Get In <span className="text-blue-400">Touch</span>
           </h2>
@@ -18,7 +39,7 @@ export const Contact = () => {
         </div>
         
         <div className="grid lg:grid-cols-2 gap-12">
-          <Card className="bg-slate-700/50 border-slate-600">
+          <Card className={`bg-slate-700/50 border-slate-600 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`} style={{ transitionDelay: '200ms' }}>
             <CardHeader>
               <CardTitle className="text-white text-2xl">Send us a Message</CardTitle>
             </CardHeader>
@@ -49,7 +70,7 @@ export const Contact = () => {
             </CardContent>
           </Card>
           
-          <div className="space-y-8">
+          <div className={`space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`} style={{ transitionDelay: '400ms' }}>
             <Card className="bg-slate-700/50 border-slate-600">
               <CardContent className="pt-6">
                 <h3 className="text-xl font-semibold text-white mb-4">Contact Information</h3>

@@ -1,7 +1,28 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect, useRef, useState } from "react";
 
 export const ProductCategories = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const categories = [
     {
       title: "Electronic Components",
@@ -24,9 +45,9 @@ export const ProductCategories = () => {
   ];
 
   return (
-    <section id="products" className="py-20 bg-slate-800">
+    <section ref={sectionRef} id="products" className="py-20 bg-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Our <span className="text-blue-400">Product Range</span>
           </h2>
@@ -37,7 +58,16 @@ export const ProductCategories = () => {
         
         <div className="grid md:grid-cols-3 gap-8">
           {categories.map((category, index) => (
-            <Card key={index} className="bg-slate-700/50 border-slate-600 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105 group">
+            <Card 
+              key={index} 
+              className={`bg-slate-700/50 border-slate-600 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105 group ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ 
+                transitionDelay: `${index * 200}ms`,
+                transitionDuration: '800ms'
+              }}
+            >
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
                   src={category.image} 
