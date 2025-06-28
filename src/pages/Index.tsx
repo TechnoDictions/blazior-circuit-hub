@@ -4,6 +4,7 @@ import { ProductCategories } from "@/components/ProductCategories";
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -13,6 +14,7 @@ const Index = () => {
       <ProductCategories />
       <About />
       <Contact />
+      <Footer />
     </div>
   );
 };
